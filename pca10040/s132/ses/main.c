@@ -503,7 +503,7 @@ static void advertisingUpdateTimerHandler(void * p_context)
 #define WATCHDOG_PIN 12
 #define MOSFET_PIN 17
 #define SWITCH_PIN 29
-#define INTRPT_PIN 12
+#define INTRPT_PIN 18
 
 uint8_t transitioned = 0;
 int32_t last_press = 101325;
