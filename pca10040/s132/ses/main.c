@@ -123,6 +123,37 @@ static uint32_t                m_adc_evt_counter = 0;
 static bool                    m_saadc_calibrate = false;     
 uint16_t vbat_adc; 
 
+
+/******************************************/
+
+//static ble_gap_adv_params_t m_adv_params;                               /**< Parameters to be passed to the stack when starting advertising. */
+//static uint8_t m_adv_handle = BLE_GAP_ADV_SET_HANDLE_NOT_SET;           /**< Advertising handle used to identify an advertising set. */
+//static uint8_t m_enc_advdata[BLE_GAP_ADV_SET_DATA_SIZE_MAX];            /**< Buffer for storing an encoded advertising set. */
+//static bool    m_memory_access_in_progress;   /**< Flag to keep track of ongoing operations on persistent memory. */
+
+//void gap_params_init(void)
+//{
+//    ret_code_t err_code;
+//    ble_gap_conn_params_t gap_conn_params;
+//    ble_gap_conn_sec_mode_t sec_mode;
+
+//    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
+
+//    memset(&gap_conn_params, 0, sizeof(gap_conn_params));
+
+//    gap_conn_params.min_conn_interval = MIN_CONN_INTERVAL;
+//    gap_conn_params.max_conn_interval = MAX_CONN_INTERVAL;
+//    gap_conn_params.slave_latency = SLAVE_LATENCY;
+//    gap_conn_params.conn_sup_timeout = CONN_SUP_TIMEOUT;
+
+//    err_code = sd_ble_gap_ppcp_set(&gap_conn_params);
+//    APP_ERROR_CHECK(err_code);
+//}
+
+/******************************************/
+
+
+
 static void rtc_handler(nrf_drv_rtc_int_type_t int_type)
 {
     uint32_t err_code;
@@ -308,56 +339,76 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t * p_file_name)
  */
 static void advertising_init(void)
 {
-    uint32_t      err_code;
-    ble_advdata_t advdata;
-    uint8_t       flags = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
+    //uint32_t      err_code;
+    //ble_advdata_t advdata;
+    //uint8_t       flags = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
 
-    //ble_uuid_t adv_uuids[] = 
-    //{
-    //    {APP_TEMPERATURE_UUID, BLE_UUID_TYPE_BLE}
-    //};
+    ////ble_uuid_t adv_uuids[] = 
+    ////{
+    ////    {APP_TEMPERATURE_UUID, BLE_UUID_TYPE_BLE}
+    ////};
 
-    //// Temperature Service Data
-    //uint8_t temp_data[] = 
-    //{
-    //    APP_TEMPERATURE_LENGTH,
-    //    APP_TEMPERATURE_SERVICE_UUID,
-    //    APP_TEMPERATURE_UUID_LE,
-    //    0x00
-    //};
-    //uint8_array_t temperature_data_array;
-    //temperature_data_array.p_data = (uint8_t *) temp_data;
-    //temperature_data_array.size = sizeof(temp_data);
+    ////// Temperature Service Data
+    ////uint8_t temp_data[] = 
+    ////{
+    ////    APP_TEMPERATURE_LENGTH,
+    ////    APP_TEMPERATURE_SERVICE_UUID,
+    ////    APP_TEMPERATURE_UUID_LE,
+    ////    0x00
+    ////};
+    ////uint8_array_t temperature_data_array;
+    ////temperature_data_array.p_data = (uint8_t *) temp_data;
+    ////temperature_data_array.size = sizeof(temp_data);
 
-    //ble_advdata_service_data_t service_data;                        // Structure to hold Service Data.
-    //service_data.service_uuid = APP_TEMPERATURE_UUID;                // Temp UUID to allow discoverability on iOS devices.
-    //service_data.data = temperature_data_array;                     // Array for service advertisement data.
+    ////ble_advdata_service_data_t service_data;                        // Structure to hold Service Data.
+    ////service_data.service_uuid = APP_TEMPERATURE_UUID;                // Temp UUID to allow discoverability on iOS devices.
+    ////service_data.data = temperature_data_array;                     // Array for service advertisement data.
 
-    // Build and set advertising data.
-    memset(&advdata, 0, sizeof(advdata));
+    //// Build and set advertising data.
+    //memset(&advdata, 0, sizeof(advdata));
 
-    advdata.name_type               = BLE_ADVDATA_FULL_NAME; 
-    advdata.flags                   = flags;
+    //advdata.name_type               = BLE_ADVDATA_FULL_NAME; 
+    //advdata.flags                   = flags;
 
-    //advdata.uuids_more_available.uuid_cnt = sizeof(adv_uuids) / sizeof(adv_uuids[0]);
-    //advdata.uuids_more_available.p_uuids  = adv_uuids;
-    //advdata.p_service_data_array    = &service_data;                // Pointer to Service Data structure.
-    //advdata.service_data_count      = 1;
+    ////advdata.uuids_more_available.uuid_cnt = sizeof(adv_uuids) / sizeof(adv_uuids[0]);
+    ////advdata.uuids_more_available.p_uuids  = adv_uuids;
+    ////advdata.p_service_data_array    = &service_data;                // Pointer to Service Data structure.
+    ////advdata.service_data_count      = 1;
+
+    //// Initialize advertising parameters (used when starting advertising).
+    //memset(&m_adv_params, 0, sizeof(m_adv_params));
+
+    //m_adv_params.properties.type = BLE_GAP_ADV_TYPE_NONCONNECTABLE_NONSCANNABLE_UNDIRECTED;
+    //m_adv_params.p_peer_addr     = NULL;    // Undirected advertisement.
+    //m_adv_params.filter_policy   = BLE_GAP_ADV_FP_ANY;
+    //m_adv_params.interval        = NON_CONNECTABLE_ADV_INTERVAL;
+    //m_adv_params.duration        = 0;       // Never time out.
+
+    //err_code = ble_advdata_encode(&advdata, m_adv_data.adv_data.p_data, &m_adv_data.adv_data.len);
+    //APP_ERROR_CHECK(err_code);
+
+    //err_code = sd_ble_gap_adv_set_configure(&m_adv_handle, &m_adv_data, &m_adv_params);
+    //APP_ERROR_CHECK(err_code);
 
     // Initialize advertising parameters (used when starting advertising).
     memset(&m_adv_params, 0, sizeof(m_adv_params));
-
     m_adv_params.properties.type = BLE_GAP_ADV_TYPE_NONCONNECTABLE_NONSCANNABLE_UNDIRECTED;
-    m_adv_params.p_peer_addr     = NULL;    // Undirected advertisement.
-    m_adv_params.filter_policy   = BLE_GAP_ADV_FP_ANY;
-    m_adv_params.interval        = NON_CONNECTABLE_ADV_INTERVAL;
-    m_adv_params.duration        = 0;       // Never time out.
+    m_adv_params.p_peer_addr = NULL; // Undirected advertisement.
+    m_adv_params.filter_policy = BLE_GAP_ADV_FP_ANY;
+    m_adv_params.interval = NON_CONNECTABLE_ADV_INTERVAL;
+    m_adv_params.duration = BLE_GAP_ADV_TIMEOUT_GENERAL_UNLIMITED;
+    m_adv_params.primary_phy = BLE_GAP_PHY_AUTO;
+    m_adv_params.secondary_phy = BLE_GAP_PHY_AUTO;
+    //xm_adv_params.channel_mask[4] = 0xC0; // advertise on 37 only
+    // m_adv_params.channel_mask[4] = 0xA0; // advertise on 38 only
+    // m_adv_params.channel_mask[4] = 0x60; // advertise on 39 only
 
-    err_code = ble_advdata_encode(&advdata, m_adv_data.adv_data.p_data, &m_adv_data.adv_data.len);
-    APP_ERROR_CHECK(err_code);
+    // Data
+    m_adv_data.adv_data.p_data[0] = 0x1E; // length
+    for (int i = 1; i < m_adv_data.adv_data.len; i++) { m_adv_data.adv_data.p_data[i] = 0x0; }
 
-    err_code = sd_ble_gap_adv_set_configure(&m_adv_handle, &m_adv_data, &m_adv_params);
-    APP_ERROR_CHECK(err_code);
+    // start advertising with m_adv_data and m_adv_params
+    sd_ble_gap_adv_set_configure(&m_adv_handle, &m_adv_data, &m_adv_params);
 }
 
 
@@ -529,7 +580,7 @@ void gpio_init()
     nrf_gpio_cfg_output(WATCHDOG_PIN);
     nrf_gpio_cfg_output(MOSFET_PIN);
     nrf_gpio_cfg_input(SUPERVISORY_PIN, NRF_GPIO_PIN_NOPULL);
-    
+   
     // Config struct
     //lotohi - active high
     nrf_drv_gpiote_in_config_t in_config = GPIOTE_CONFIG_IN_SENSE_LOTOHI(false);
@@ -550,7 +601,7 @@ int main(void)
 {
     // Initialize.
 
-    log_init();
+    //log_init();
 
     twi_init();
     gpio_init();
@@ -560,6 +611,7 @@ int main(void)
     
     //ble_stack_init();
     //timers_init();
+    //gap_params_init();
 
     //// CUSTOM MAC ADDRESS
     //ble_gap_addr_t gap_addr;
@@ -658,8 +710,8 @@ int main(void)
             rslt = bmp3_get_status(&status, &dev);
             bmp3_check_rslt("bmp3_get_status", rslt);
 
-            NRF_LOG_INFO("T: %d deg C, P: %d Pa Delta: %d Pa\n", (data.temperature), (data.pressure), delta);
-            NRF_LOG_FLUSH();
+            //NRF_LOG_INFO("T: %d deg C, P: %d Pa Delta: %d Pa\n", (data.temperature), (data.pressure), delta);
+            //NRF_LOG_FLUSH();
 
             if (transitioned == 0) 
             {
@@ -686,12 +738,12 @@ int main(void)
                     // Check supervisory
                     if (nrf_gpio_pin_read(SUPERVISORY_PIN) == 1) 
                     {
-                        // Trigger mosfet pin
-                        nrf_gpio_pin_set(MOSFET_PIN);
-                        nrf_delay_ms(100);
-                        nrf_gpio_pin_clear(MOSFET_PIN);
                         // Toggle switch pin
                         nrf_gpio_pin_clear(SWITCH_PIN);
+                        // Trigger mosfet pin
+                        nrf_gpio_pin_set(MOSFET_PIN);
+                        nrf_delay_ms(20);
+                        nrf_gpio_pin_clear(MOSFET_PIN);
                         // Set global transitioned to 1
                         transitioned = 1;
                     
